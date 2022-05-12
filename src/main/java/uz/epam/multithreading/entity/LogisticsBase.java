@@ -28,7 +28,7 @@ public class LogisticsBase {
 
     private LogisticsBase() {
         availableTerminals = new ArrayDeque<>(MAX_TERMINAL_SIZE);
-        for (int i = 0; i < 4; i++){
+        for (int i = 0; i < MAX_TERMINAL_SIZE; i++){
             availableTerminals.add(new Terminal());
         }
         busyTerminals = new ArrayDeque<>(0);
