@@ -36,8 +36,8 @@ public class LogisticsBase {
 
     public static LogisticsBase getInstance(){
         try {
+            instanceLock.lock();
             if (instance == null) {
-                instanceLock.lock();
                 instance = new LogisticsBase();
                 return instance;
             }
@@ -79,4 +79,27 @@ public class LogisticsBase {
         }
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        LogisticsBase that = (LogisticsBase) o;
+        return Objects.equals(terminalLock, that.terminalLock) &&
+                Objects.equals(availableTerminals, that.availableTerminals) &&
+                Objects.equals(busyTerminals, that.busyTerminals);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(terminalLock, availableTerminals, busyTerminals);
+    }
+
+    @Override
+    public String toString() {
+        return new StringJoiner(", ", LogisticsBase.class.getSimpleName() + "[", "]")
+                .add("terminalLock=" + terminalLock)
+                .add("availableTerminals=" + availableTerminals)
+                .add("busyTerminals=" + busyTerminals)
+                .toString();
+    }
 }
